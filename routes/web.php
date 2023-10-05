@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SalesController::class, 'index']);
+Route::get('get-data-sales/{id}', [SalesController::class, 'getDataSales']);
