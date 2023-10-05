@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\CustomerAlamat;
 use App\Models\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -17,7 +18,7 @@ class SalesController extends Controller
     public function getDataSales($id)
     {
         $alamat = CustomerAlamat::where('customer_id', $id)->latest()->first();
-        $sales = Sales::where('customer_id', $id)->get();
+        $sales = Sales::whereRaw("customer_id ='" . $id . "'AND YEAR(tanggal_transaksi) = YEAR(NOW()) - 1")->get();
         return compact('alamat', 'sales');
     }
 }
